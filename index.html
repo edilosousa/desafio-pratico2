@@ -60,6 +60,7 @@
                             <th>CÓDIGO</th>
                             <th>DESCRIÇÃO</th>
                             <th>QUANTIDADE</th>
+                            <th>AÇÕES</th>
                         </thead>
                         <tbody id="table-products">
 
@@ -77,6 +78,29 @@
                     <label>Detalhes do produto</label>
                 </div>
                 <div class="card-body">
+                    <div class="form-group">
+                        <label for="inputCodigoEdit">Código</label>
+                        <input type="text" class="form-control" id="inputCodigoEdit" style="width: 30%;" />
+                      </div>
+                    <div class="form-group">
+                      <label for="inputDescricaoEdit">Descrição</label>
+                      <input type="text" class="form-control" id="inputDescricaoEdit" />
+                      <small class="form-text text-muted"
+                        >Descreva resumidamente o produto a ser cadastrado.</small
+                      >
+                    </div>
+                    <div class="form-group">
+                      <label for="inputQtyEdit">Quantidade</label>
+                      <input
+                        type="number"
+                        class="form-control"
+                        id="inputQtyEdit"
+                        style="width: 10%"
+                      />
+                    </div>
+                    <button type="submit" id="btn-save" class="btn btn-primary">
+                      Salvar
+                    </button>
                 </div>
             </div>
         </div>
@@ -87,14 +111,19 @@
     //   const produtos = JSON.parse(produtosLocal)
     const produto = new ProdutoRepository();
     const produtos = produto.listarProdutos();
+    const produtosEdit = []
       var tabela = document.getElementById("table-products").value;
       var table = '';
     //   console.log(produtos[1]['quantidade'])
       for(var i = 0; i < produtos.length; i++){
         console.log(produtos[i]['quantidade'])
-        table += '<tr><td>'+i+'</td><td>'+produtos[i]['codigo']+'</td><td>'+ produtos[i]['descricao'] +'</td><td>'+ produtos[i]['quantidade'] +'</td></tr>';
+        table += '<tr><td>'+i+'</td><td>'+produtos[i]['codigo']+'</td><td>'+ produtos[i]['descricao'] +'</td><td>'+ produtos[i]['quantidade'] +'</td><td style="cursor:pointer" onclick="updateProduct('+i+')">editar</td></tr>';
       }
       console.log(table)
       document.getElementById("table-products").innerHTML = table;
+
+      function updateProduct(id){
+          alert(id)
+      }
   </script>
 </html>
