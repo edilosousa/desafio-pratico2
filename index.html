@@ -83,8 +83,10 @@
     </div>
   </body>
   <script>
-      const produtosLocal = localStorage.getItem("produtos");
-      const produtos = JSON.parse(produtosLocal)
+    //   const produtosLocal = localStorage.getItem("produtos");
+    //   const produtos = JSON.parse(produtosLocal)
+    const produto = new ProdutoRepository();
+    const produtos = produto.listarProdutos();
       var tabela = document.getElementById("table-products").value;
       var table = '';
     //   console.log(produtos[1]['quantidade'])

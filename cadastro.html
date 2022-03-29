@@ -88,17 +88,9 @@
       const codigo = document.getElementById("inputCodigo").value;
       const descricao = document.getElementById("inputDescricao").value;
       const quantidade = document.getElementById("inputQty").value;
-      const pr = {
-          codigo,
-          descricao,
-          quantidade
-      }
+      const produto = new Produto(codigo, descricao, quantidade);
       const repository = new ProdutoRepository();
-      repository.inserirProduto(pr);
+      repository.inserirProduto(produto);
     });
-
-    // const repositoryList = new ProdutoRepository();
-    // const produtos = repositoryList.listarCarros();
-    // alert(localStorage.getItem("produtos"));
   </script>
 </html>

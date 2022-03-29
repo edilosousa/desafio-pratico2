@@ -1,11 +1,11 @@
 class Produto{
-    constructor(id, descricao, quantidade){
-        this._id  = id
+    constructor(codigo, descricao, quantidade){
+        this._codigo  = codigo
         this._descricao = descricao
         this._quantidade = quantidade
     }
-    getId(){
-        return this._id
+    getCodigo(){
+        return this._codigo
     }
     getDescricao(){
         return this._descricao
