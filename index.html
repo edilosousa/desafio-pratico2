@@ -10,6 +10,8 @@
       href="bootstrap-4.6.1/bootstrap-4.6.1-dist/css/bootstrap.min.css"
     />
     <link rel="stylesheet" href="style.css">
+    <script src="produto.js"></script>
+    <script src="produtoRepository.js"></script>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -80,4 +82,17 @@
         </div>
     </div>
   </body>
+  <script>
+      const produtosLocal = localStorage.getItem("produtos");
+      const produtos = JSON.parse(produtosLocal)
+      var tabela = document.getElementById("table-products").value;
+      var table = '';
+    //   console.log(produtos[1]['quantidade'])
+      for(var i = 0; i < produtos.length; i++){
+        console.log(produtos[i]['quantidade'])
+        table += '<tr><td>'+i+'</td><td>'+produtos[i]['codigo']+'</td><td>'+ produtos[i]['descricao'] +'</td><td>'+ produtos[i]['quantidade'] +'</td></tr>';
+      }
+      console.log(table)
+      document.getElementById("table-products").innerHTML = table;
+  </script>
 </html>

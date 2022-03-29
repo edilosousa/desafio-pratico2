@@ -1,22 +1,19 @@
 class ProdutoRepository {
     constructor() {
       this._produtos = []
-      this._chaveCarro = 'carros'
+      this._chaveProdutos = 'produtos'
     }
   
-    salvarCarro(carro) {
-      if (carro instanceof Carro) {
-        this._formatarCarros()
-  
-        this._carros.push(carro)
-        localStorage.setItem(this._chaveCarro, JSON.stringify(this._carros))
-      }
+    inserirProduto(produto) {
+        var a = []
+        a = JSON.parse(localStorage.getItem('produtos')) || []
+        a.push(produto)
+        localStorage.setItem(this._chaveProdutos, JSON.stringify(a))
+        console.log("salvo com sucesso!")
     }
   
     listarCarros() {
-      this._formatarCarros()
-  
-      return [...this._carros]
+      return [...this._produtos]
     }
   
 }
