@@ -9,7 +9,7 @@
       rel="stylesheet"
       href="bootstrap-4.6.1/bootstrap-4.6.1-dist/css/bootstrap.min.css"
     />
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
     <script src="produto.js"></script>
     <script src="produtoRepository.js"></script>
   </head>
@@ -30,100 +30,220 @@
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <span class="nav-link">Home</span>
-              </li>
+          <li class="nav-item">
+            <span class="nav-link">Home</span>
+          </li>
           <li class="nav-item active">
-            <a class="nav-link" href="cadastro.html"
-              >Cadastros</a
-            >
+            <a class="nav-link" href="cadastro.html">Cadastros</a>
           </li>
         </ul>
       </div>
     </nav>
     <div class="row mt-3 ml-1 mr-1">
-        <div class="col-sm-12">
-            <h2 class="text-primary">Sistema de Estoque</h2>
-            <hr/>
-        </div>
+      <div class="col-sm-12">
+        <h2 class="text-primary">Sistema de Estoque</h2>
+        <hr />
+      </div>
     </div>
     <div class="row mt-2 ml-1 mr-1">
-        <div class="col-sm-6">
-            <div class="card">
-                <div class="card-header">
-                    <label>Produtos</label>
-                </div>
-                <div class="card-body">
-                    <table class="table table-striped">
-                        <thead>
-                            <th>ID</th>
-                            <th>CÓDIGO</th>
-                            <th>DESCRIÇÃO</th>
-                            <th>QUANTIDADE</th>
-                            <th>AÇÕES</th>
-                        </thead>
-                        <tbody id="table-products">
-
-                        </tbody>
-                    </table>
-                </div>
-                <div class="card-footer">
-                    Desafio prático - Instituto Eldorado 2022
-                </div>
-            </div>
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-header">
+            <label>Produtos</label>
+            <button class="btn btn-outline-info float-right ml-2" id="search">
+              Buscar
+            </button>
+            <input
+              type="text"
+              class="form-control float-right"
+              placeholder="Digite um produto"
+              style="width: 50%"
+              id="search-produto"
+            />
+          </div>
+          <div class="card-body">
+            <table class="table table-striped">
+              <thead>
+                <th>ID</th>
+                <th>CÓDIGO</th>
+                <th>DESCRIÇÃO</th>
+                <th>QUANTIDADE</th>
+                <th>AÇÕES</th>
+              </thead>
+              <tbody id="table-products"></tbody>
+            </table>
+          </div>
+          <div class="card-footer">
+            Desafio prático - Instituto Eldorado 2022
+          </div>
         </div>
-        <div class="col-sm-6">
-            <div class="card">
-                <div class="card-header">
-                    <label>Detalhes do produto</label>
-                </div>
-                <div class="card-body">
-                    <div class="form-group">
-                        <label for="inputCodigoEdit">Código</label>
-                        <input type="text" class="form-control" id="inputCodigoEdit" style="width: 30%;" />
-                      </div>
-                    <div class="form-group">
-                      <label for="inputDescricaoEdit">Descrição</label>
-                      <input type="text" class="form-control" id="inputDescricaoEdit" />
-                      <small class="form-text text-muted"
-                        >Descreva resumidamente o produto a ser cadastrado.</small
-                      >
-                    </div>
-                    <div class="form-group">
-                      <label for="inputQtyEdit">Quantidade</label>
-                      <input
-                        type="number"
-                        class="form-control"
-                        id="inputQtyEdit"
-                        style="width: 10%"
-                      />
-                    </div>
-                    <button type="submit" id="btn-save" class="btn btn-primary">
-                      Salvar
-                    </button>
-                </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-header">
+            <label>Detalhes do produto</label>
+          </div>
+          <div class="card-body">
+            <div class="form-group">
+              <label for="inputCodigoEdit">Código</label>
+              <input
+                type="text"
+                class="form-control"
+                id="inputCodigoEdit"
+                style="width: 30%"
+              />
             </div>
+            <div class="form-group">
+              <label for="inputDescricaoEdit">Descrição</label>
+              <input type="text" class="form-control" id="inputDescricaoEdit" />
+              <small class="form-text text-muted"
+                >Descreva resumidamente o produto a ser alterado.</small
+              >
+            </div>
+            <div class="form-group">
+              <label for="inputQtyEdit">Quantidade</label>
+              <input
+                type="number"
+                class="form-control"
+                id="inputQtyEdit"
+                style="width: 10%"
+              />
+            </div>
+            <button type="submit" id="btn-update" class="btn btn-success">
+              Alterar
+            </button>
+            <div
+              class="alert alert-success float-right d-none"
+              id="alert-update"
+              role="alert"
+            >
+              Produto alterado com sucesso!
+            </div>
+            <input type="hidden" id="id-hidden" />
+          </div>
         </div>
+      </div>
     </div>
   </body>
   <script>
-    //   const produtosLocal = localStorage.getItem("produtos");
-    //   const produtos = JSON.parse(produtosLocal)
-    const produto = new ProdutoRepository();
-    const produtos = produto.listarProdutos();
-    const produtosEdit = []
-      var tabela = document.getElementById("table-products").value;
-      var table = '';
-    //   console.log(produtos[1]['quantidade'])
-      for(var i = 0; i < produtos.length; i++){
-        console.log(produtos[i]['quantidade'])
-        table += '<tr><td>'+i+'</td><td>'+produtos[i]['codigo']+'</td><td>'+ produtos[i]['descricao'] +'</td><td>'+ produtos[i]['quantidade'] +'</td><td style="cursor:pointer" onclick="updateProduct('+i+')">editar</td></tr>';
+    function listarProdutos() {
+      const produto = new ProdutoRepository();
+      const produtos = produto.listarProdutos();
+      var table = "";
+      for (var i = 0; i < produtos.length; i++) {
+        table +=
+          "<tr><td>" +
+          i +
+          "</td><td>" +
+          produtos[i]["codigo"] +
+          "</td><td>" +
+          produtos[i]["descricao"] +
+          "</td><td>" +
+          produtos[i]["quantidade"] +
+          "</td><td><button class='btn btn-info' onClick='updateProduct(" +
+          i +
+          ")'  data-id=" +
+          i +
+          " data-cod=" +
+          produtos[i]["codigo"] +
+          " data-des=" +
+          produtos[i]["descricao"] +
+          " data-qty=" +
+          produtos[i]["quantidade"] +
+          " id='update" +
+          i +
+          "'>editar</button> <button class='btn btn-danger' onClick='deleteProduct(" +
+          i +
+          ")' data-id=" +
+          i +
+          " id='delete" +
+          i +
+          "'>excluir</button></td></tr>";
       }
-      console.log(table)
       document.getElementById("table-products").innerHTML = table;
-
-      function updateProduct(id){
-          alert(id)
+    }
+    listarProdutos();
+    document.getElementById("search").addEventListener("click", function () {
+      const val = document.getElementById("search-produto").value;
+      const produto = new ProdutoRepository();
+      const produtos = produto.buscarProduto(val);
+      if (produtos) {
+        const result = produtos.split("/");
+        var table = "";
+        table +=
+          "<tr><td>" +
+          result[0] +
+          "</td><td>" +
+          result[1] +
+          "</td><td>" +
+          result[2] +
+          "</td><td>" +
+          result[3] +
+          "</td><td><button class='btn btn-info' onClick='updateProduct(" +
+          +")'  data-id=" +
+          result[0] +
+          " data-cod=" +
+          result[1] +
+          " data-des=" +
+          result[2] +
+          " data-qty=" +
+          result[3] +
+          " id='update" +
+          result[0] +
+          "'>editar</button> <button class='btn btn-danger' onClick='deleteProduct(" +
+          result[0] +
+          ")' data-id=" +
+          result[0] +
+          " id='delete" +
+          result[0] +
+          "'>excluir</button></td></tr>";
+        document.getElementById("table-products").innerHTML = table;
+      } else {
+        alert("Nada encontrado!");
+        listarProdutos();
       }
+    });
+    function updateProduct(i) {
+      var update = document.getElementById("update" + i);
+      document.getElementById("inputCodigoEdit").value = update.dataset.cod;
+      document.getElementById("inputDescricaoEdit").value = update.dataset.des;
+      document.getElementById("inputQtyEdit").value = update.dataset.qty;
+      document.getElementById("id-hidden").value = i;
+    }
+
+    document
+      .getElementById("btn-update")
+      .addEventListener("click", function () {
+        const produto = new ProdutoRepository();
+        const produtos = produto.listarProdutos();
+        const pr = {
+          id: document.getElementById("id-hidden").value,
+          codigo: document.getElementById("inputCodigoEdit").value,
+          descricao: document.getElementById("inputDescricaoEdit").value,
+          quantidade: document.getElementById("inputQtyEdit").value,
+        };
+        const result = produto.alterarProduto(pr);
+        if (result) {
+          const alert = document.getElementById("alert-update").classList;
+          alert.remove("d-none");
+          document.getElementById("inputCodigoEdit").value = "";
+          document.getElementById("inputDescricaoEdit").value = "";
+          document.getElementById("inputQtyEdit").value = "";
+          listarProdutos();
+        }
+      });
+
+    function deleteProduct(i) {
+      const produto = new ProdutoRepository();
+      const produtos = produto.listarProdutos();
+      var del = document.getElementById("delete" + i);
+      alert(del.dataset.id)
+      const result = produto.deletarProduto(del.dataset.id);
+      if (result) {
+        alert("Produto deletado com sucesso!");
+        listarProdutos();
+      }
+    }
+    
   </script>
 </html>
