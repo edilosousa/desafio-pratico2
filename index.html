@@ -226,7 +226,6 @@
       const produto = new ProdutoRepository();
       const produtos = produto.listarProdutos();
       var del = document.getElementById("delete" + i);
-      alert(del.dataset.id)
       const result = produto.deletarProduto(del.dataset.id);
       if (result) {
         alert("Produto deletado com sucesso!");
